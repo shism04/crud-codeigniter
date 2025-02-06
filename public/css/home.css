@@ -1,0 +1,575 @@
+@import url('vars.css');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--background-color);
+    color: white;
+
+    div.logo {
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+
+
+            img {
+                margin-right: .5rem;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+
+    /*Search box styles*/
+
+    div.search-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1.5rem;
+
+        form {
+
+            input {
+                display: block;
+                border-radius: .5em;
+                font-size: 1em;
+                outline: none;
+                width: 50vw;
+                background-color: var(--primary-color);
+                border: 1px solid var(--primary-color);
+                color: white;
+            }
+
+
+
+
+            .search {
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                padding: 0px 5px 0px 0px;
+                justify-content: center;
+                border-radius: 1em;
+                border: 2px solid var(--secondary-color);
+                width: 100%;
+                padding: .4em .4em .4em .8em;
+
+                button {
+                    background-color: var(--secondary-color);
+                    border-radius: 1em;
+                    border: none;
+                    transition: background-color 0.3s ease;
+                    padding: .5em 1em;
+
+                    &:hover {
+                        background-color: var(--button-color);
+                        color: var(--secondary-color);
+                    }
+
+                }
+
+
+                i {
+                    color: white;
+                    font-size: 1.2em;
+                }
+
+                input[type="text"]:focus {
+                    outline: none;
+                    /* Remove default outline on focus */
+                }
+            }
+
+
+        }
+    }
+
+    span.diff {
+        color: var(--secondary-color);
+    }
+
+    .account {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 10px;
+    }
+
+
+    .off-canvas {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 250px;
+        height: 100vh;
+        background-color: #f4f4f4;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+        transition: right 0.3s ease;
+        padding: 20px;
+        z-index: 1000;
+    }
+
+    .off-canvas-content {
+        display: flex;
+        flex-direction: column;
+
+        div.top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+
+            div.user {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                span {
+                    color: black;
+                }
+
+                img {
+                    width: 2.1rem;
+                    height: 2.1rem;
+                }
+            }
+
+            img.close {
+                width: 1.5rem;
+                height: 1.5rem;
+                background-color: var(--secondary-color);
+                transition: .4s;
+                padding: .3rem;
+
+                &:hover {
+                    background-color: var(--secondary-color);
+                }
+            }
+        }
+    }
+
+    .off-canvas-links {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+        text-decoration: none;
+
+
+        a {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: black;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+        }
+    }
+
+    .off-canvas.open {
+        right: 0;
+    }
+
+}
+
+/* Hero Section */
+.hero {
+    min-height: 65vh;
+    background: url('../images/nba-bg.jpg') no-repeat center center / cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-color);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    margin-left: 2em;
+}
+
+.hero-content h1 {
+    font-size: var(--font-size-xl);
+    margin: 0;
+}
+
+.hero-content p {
+    font-size: var(--font-size-lg);
+    color: var(--text-light);
+}
+
+/*Ordenar*/
+
+.sort-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #8f8f8f;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+.sort-option {
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.sort-option:hover {
+    color: var(--secondary-color);
+    border-radius: 3px;
+}
+
+/* Tarjeta del jugador */
+.player-cards {
+    padding: 2em;
+}
+
+.player-card {
+    margin-bottom: 1em;
+
+    &:hover {
+        div.bg {
+            background-color: #222c3b;
+        }
+    }
+}
+
+/* Número y Línea de Tiempo */
+.player-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+    padding: .5em 2em;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.player-info .left {
+    display: flex;
+    align-items: center;
+
+    h2 {
+        margin-left: 1em;
+    }
+}
+
+.player-number {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.actions {
+
+    a,
+    button {
+        color: var(--secondary-color);
+        margin-left: 1em;
+    }
+}
+
+
+.specific-info {
+    display: flex;
+    padding: 1em;
+    background-color: rgb(222, 222, 222);
+    color: black;
+}
+
+/* Imagen del jugador */
+.image-container {
+    position: relative;
+    width: 28%;
+    background-color: rgb(222, 222, 222);
+    overflow: hidden;
+}
+
+.image-container .hidden {
+    overflow: hidden;
+}
+
+.image-container .overflow-hidden {
+    height: 32px;
+    position: relative;
+    padding-top: 2em;
+}
+
+.image-container .overflow-hidden img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 25;
+}
+
+.image-container .bg {
+    height: 200px;
+    background-color: var(--primary-color);
+    border: 1px solid black;
+    border-bottom: 0px;
+    position: relative;
+    transition: .5s;
+}
+
+.position-tag {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: var(--secondary-color);
+    color: white;
+    font-size: 12px;
+    padding: 3px 6px;
+}
+
+.player-phisic {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .3em .6em;
+    background-color: white;
+    border-bottom: 1px solid black;
+}
+
+.stats {
+    padding: .2em;
+}
+
+.stats.right {
+    border-left: 1px solid black;
+    padding-left: 1em;
+}
+
+.stats.left {
+    padding-right: 1em;
+}
+
+/* Información del jugador */
+.player-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 3em;
+    margin-top: 2em;
+}
+
+.player-name {
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 1em;
+    border-left: 1px solid white;
+}
+
+.team {
+    color: gray;
+}
+
+.description {
+    margin: 10px 0;
+    font-size: var(--font-size-md);
+}
+
+.light-text {
+    color: gray;
+}
+
+/* Habilidades */
+.trofeos {
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+    margin-top: 5em;
+}
+
+.trofeo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trofeo img {
+    width: 52px;
+    height: 52px;
+}
+
+.trofeo p {
+    margin: 0;
+}
+
+/*Pagination*/
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3em;
+}
+
+.pagination form {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.pagination button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.pagination .active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.pagination .prev,
+.pagination .next {
+    font-weight: bold;
+}
+
+/*Dialog*/
+/* Estilos generales */
+
+::backdrop {
+    background-color: var(--primary-color);
+    opacity: 0.90;
+}
+
+/* Estilos del dialog */
+
+dialog {
+    background-color: #2e3b4e;
+    min-width: 50vw;
+    padding: 1em;
+    form {
+        color: white;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    h2 {
+        margin-bottom: 1em;
+        text-align: center;
+    }
+
+    .input-group{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1em;
+    }
+
+    label {
+        font-size: 1.1em;
+        color: #a3b2c3;
+    }
+
+    input,
+    textarea {
+        padding: 0.8em;
+        border-radius: 0.5em;
+        border: none;
+        margin-top: 0.5em;
+        font-size: 1em;
+        background-color: #1f2a37;
+        color: white;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .image-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 1em;
+        background-color: var(--primary-color);
+        img{
+            width: 150px;
+            height: 150px;
+        }
+        input{
+            font-size: 0.8em;
+            margin-top: 0em;
+            background-color: var(--secondary-color);
+            margin-left: 1em;
+        }
+    }
+
+    .btns{
+        display:  flex;
+        align-items: center;
+        justify-content: center;
+
+        button {
+            padding: 1em;
+            border-radius: 1.2em;
+            background-color: #4db8ff;
+            border: none;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-left: 1em;
+        }
+    
+        button:hover {
+            background-color: #0288d1;
+        }
+    
+        .cancel-button {
+            padding: 1em;
+            border-radius: 1.2em;
+            background-color: #ff4d4d;
+            border: none;
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+    
+        .cancel-button:hover {
+            background-color: #d42a2a;
+        }
+    }
+}

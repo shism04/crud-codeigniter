@@ -1,0 +1,32 @@
+:root {
+        /* 🎨 Colores Principales */
+        --primary-color: #2e3b4e; /* Azul oscuro principal */
+        --secondary-color: #4db8ff; /* Azul claro */
+        --accent-color: #1b4f72; /* Azul más profundo para detalles */
+        --text-color: white; /* Texto principal */
+        --text-light: #d8d8d8; /* Texto secundario */
+        --background-color: #2e3b4e; /* Fondo claro */
+        --header-background: #1a242f; /* Azul grisáceo oscuro */
+        --overlay-color: #2e3b4ea5; /* Capa translúcida */
+        --button-color: #3a6ea5; /* Azul medio para botones */
+        --button-hover: #2a5470; /* Azul más oscuro en hover */
+        --border-color: #5a7a99; /* Azul grisáceo para bordes */
+    
+        /* 🖋️ Tipografía */
+        --font-family: "Open Sans", sans-serif;
+        --font-size-base: 16px;
+        --font-size-md: 1.10em;
+        --font-size-lg: 1.25em;
+        --font-size-xl: 2em;
+    
+        /* 📏 Espaciado */
+        --spacing-xs: 4px;
+        --spacing-sm: 8px;
+        --spacing-md: 16px;
+        --spacing-lg: 32px;
+    
+        /* 🔘 Bordes y Sombras */
+        --border-radius: 8px;
+        --shadow-light: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
