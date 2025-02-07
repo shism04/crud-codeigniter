@@ -9,3 +9,4 @@ searchInput.addEventListener('blur', () => {
     searchBox.style.border = '2px solid #4db8ff';
     searchBox.style.boxShadow = 'none';
 });
+

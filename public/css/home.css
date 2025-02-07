@@ -15,6 +15,9 @@ header {
     align-items: center;
     background-color: var(--background-color);
     color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000; 
 
     div.logo {
         a {
@@ -292,11 +295,30 @@ header {
 }
 
 .actions {
+    a {
+        text-decoration: none;
+        font-size: 0.85em;
+    }
 
     a,
     button {
         color: var(--secondary-color);
         margin-left: 1em;
+    }
+
+    button,
+    a {
+        padding: 0.8em;
+        border-radius: 0.5em;
+        border: none;
+        margin-top: 0.5em;
+        background-color: var(--secondary-color);
+        color: white;
+        transition: .5s;
+
+        &:hover {
+            background-color: var(--button-color);
+        }
     }
 }
 
@@ -311,7 +333,7 @@ header {
 /* Imagen del jugador */
 .image-container {
     position: relative;
-    width: 28%;
+    min-width: 28%;
     background-color: rgb(222, 222, 222);
     overflow: hidden;
 }
@@ -478,6 +500,7 @@ dialog {
     background-color: #2e3b4e;
     min-width: 50vw;
     padding: 1em;
+
     form {
         color: white;
         width: 100%;
@@ -490,7 +513,7 @@ dialog {
         text-align: center;
     }
 
-    .input-group{
+    .input-group {
         display: flex;
         flex-direction: column;
         margin-bottom: 1em;
@@ -510,6 +533,14 @@ dialog {
         font-size: 1em;
         background-color: #1f2a37;
         color: white;
+        transition: .2s;
+
+        &:focus {
+            outline: none;
+            border: 2px solid var(--secondary-color);
+            box-shadow: 0 0 5px var(--secondary-color);
+            padding: 0.71em;
+        }
     }
 
     textarea {
@@ -517,18 +548,20 @@ dialog {
         min-height: 100px;
     }
 
-    .image-container{
+    .image-container {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
         margin-bottom: 1em;
         background-color: var(--primary-color);
-        img{
+
+        img {
             width: 150px;
             height: 150px;
         }
-        input{
+
+        input {
             font-size: 0.8em;
             margin-top: 0em;
             background-color: var(--secondary-color);
@@ -536,8 +569,8 @@ dialog {
         }
     }
 
-    .btns{
-        display:  flex;
+    .btns {
+        display: flex;
         align-items: center;
         justify-content: center;
 
@@ -552,11 +585,11 @@ dialog {
             transition: background-color 0.2s ease;
             margin-left: 1em;
         }
-    
+
         button:hover {
             background-color: #0288d1;
         }
-    
+
         .cancel-button {
             padding: 1em;
             border-radius: 1.2em;
@@ -567,7 +600,7 @@ dialog {
             cursor: pointer;
             transition: background-color 0.2s ease;
         }
-    
+
         .cancel-button:hover {
             background-color: #d42a2a;
         }

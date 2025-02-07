@@ -18,7 +18,7 @@
         </div>
 
         <div class="search-box">
-            <form action="#" method="post">
+            <form action="/buscar" method="post">
                 <div class="search">
                     <input type="text" placeholder="¿Qué estás buscando?..." name="busqueda" id="search-input">
                     <button type="submit" name="submit">
@@ -49,11 +49,92 @@
                         <img src="<?= base_url('images/icons/logout.png') ?>" alt="" class="icon log-out">
                         <span>Log out</span>
                     </a>
+                    <a href="#" class="addplayerbtn" id="addbtn">
+                        <img src="<?= base_url('images/icons/plus (2).png') ?>" alt="" class="icon log-out">
+                        <span>Anadir Jugador</span>
+                    </a>
                 </div>
             </div>
         </div>
     </header>
+    <dialog id='dialogadd'>
+        <form method="post" action="<?= base_url('/anadirJugador') ?>" enctype="multipart/form-data">
+            <h2>Añadir Jugador</h2>
 
+            <?php $errors = session()->getFlashdata('errorsadd'); ?>
+
+            <div class="input-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="<?= old('nombre'); ?>">
+                <?php if (!empty($errors['nombre'])): ?>
+                    <p class="error"><?= $errors['nombre']; ?></p>
+                <?php endif; ?>
+            </div>
+
+            <div class="input-group">
+                <label for="equipo">Equipo:</label>
+                <input type="text" id="equipo" name="equipo" value="<?= old('equipo'); ?>">
+                <?php if (!empty($errors['equipo'])): ?>
+                    <p class="error"><?= $errors['equipo']; ?></p>
+                <?php endif; ?>
+            </div>
+
+            <div class="input-group">
+                <label for="posicion">Posición:</label>
+                <input type="text" id="posicion" name="posicion" value="<?= old('posicion'); ?>">
+                <?php if (!empty($errors['posicion'])): ?>
+                    <p class="error"><?= $errors['posicion']; ?></p>
+                <?php endif; ?>
+            </div>
+
+            <div class="input-group">
+                <label for="altura">Altura:</label>
+                <input type="text" id="altura" name="altura" value="<?= old('altura'); ?>">
+                <?php if (!empty($errors['altura'])): ?>
+                    <p class="error"><?= $errors['altura']; ?></p>
+                <?php endif; ?>
+            </div>
+
+            <div class="input-group">
+                <label for="peso">Peso:</label>
+                <input type="text" id="peso" name="peso" value="<?= old('peso'); ?>">
+                <?php if (!empty($errors['peso'])): ?>
+                    <p class="error"><?= $errors['peso']; ?></p>
+                <?php endif; ?>
+            </div>
+
+            <div class="input-group">
+                <label for="edad">Edad:</label>
+                <input type="text" id="edad" name="edad" value="<?= old('edad'); ?>">
+                <?php if (!empty($errors['edad'])): ?>
+                    <p class="error"><?= $errors['edad']; ?></p>
+                <?php endif; ?>
+            </div>
+
+            <div class="input-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion"><?= old('descripcion'); ?></textarea>
+                <?php if (!empty($errors['descripcion'])): ?>
+                    <p class="error"><?= $errors['descripcion']; ?></p>
+                <?php endif; ?>
+            </div>
+
+            <!-- Imagen del jugador -->
+            <div class="image-container">
+                <img id="preview" alt="Imagen del jugador">
+                <input type="file" name="foto" accept="image/*" onchange="previewImageadd(event)">
+                <?php if (!empty($errors['foto'])): ?>
+                    <p class="error"><?= $errors['foto']; ?></p>
+                <?php endif; ?>
+            </div>
+
+            <div class="btns">
+                <button type="submit" class="submit-button">Añadir</button>
+                <button type="button" class="cancel-button" id="cancelaradd">Cancelar</button>
+            </div>
+        </form>
+
+    </dialog>
     <div class="hero">
         <div class="overlay"></div>
     </div>
@@ -77,61 +158,86 @@
                     </div>
                     <div class="actions">
                         <button id="editarbtn">EDITAR</button>
-                        <a href="#">ELIMINAR</a>
+                        <a href="/eliminarJugador/<?=$jugador['id']?>">ELIMINAR</a>
                     </div>
                     <dialog>
-                        <form method="post" action="<?= base_url('/editarJugador') ?>" enctype="multipart/form-data">
+                        <form method="post" action="<?= base_url('/editarJugador/' . $jugador['id'])  ?>" enctype="multipart/form-data">
                             <h2>Editar Jugador</h2>
                             <input type="hidden" name="id" value="<?= $jugador['id'] ?>">
+
+                            <?php $errors = session()->getFlashdata('errorsupd'); ?>
 
                             <div class="input-group">
                                 <label for="nombre<?= $jugador['id'] ?>">Nombre:</label>
                                 <input type="text" id="nombre<?= $jugador['id'] ?>" name="nombre" value="<?= $jugador['nombre'] ?>">
+                                <?php if (!empty($errors['nombre'])): ?>
+                                    <p class="error"><?= $errors['nombre']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div class="input-group">
                                 <label for="equipo<?= $jugador['id'] ?>">Equipo:</label>
                                 <input type="text" id="equipo<?= $jugador['id'] ?>" name="equipo" value="<?= $jugador['equipo'] ?>">
+                                <?php if (!empty($errors['equipo'])): ?>
+                                    <p class="error"><?= $errors['equipo']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <!-- Resto de los campos para editar -->
                             <div class="input-group">
                                 <label for="posicion<?= $jugador['id'] ?>">Posición:</label>
                                 <input type="text" id="posicion<?= $jugador['id'] ?>" name="posicion" value="<?= $jugador['posicion'] ?>">
+                                <?php if (!empty($errors['posicion'])): ?>
+                                    <p class="error"><?= $errors['posicion']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div class="input-group">
                                 <label for="altura<?= $jugador['id'] ?>">Altura:</label>
                                 <input type="text" id="altura<?= $jugador['id'] ?>" name="altura" value="<?= $jugador['altura'] ?>">
+                                <?php if (!empty($errors['altura'])): ?>
+                                    <p class="error"><?= $errors['altura']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div class="input-group">
                                 <label for="peso<?= $jugador['id'] ?>">Peso:</label>
                                 <input type="text" id="peso<?= $jugador['id'] ?>" name="peso" value="<?= $jugador['peso'] ?>">
+                                <?php if (!empty($errors['peso'])): ?>
+                                    <p class="error"><?= $errors['peso']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div class="input-group">
                                 <label for="edad<?= $jugador['id'] ?>">Edad:</label>
                                 <input type="text" id="edad<?= $jugador['id'] ?>" name="edad" value="<?= $jugador['edad'] ?>">
+                                <?php if (!empty($errors['edad'])): ?>
+                                    <p class="error"><?= $errors['edad']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div class="input-group">
                                 <label for="descripcion<?= $jugador['id'] ?>">Descripción:</label>
                                 <textarea id="descripcion<?= $jugador['id'] ?>" name="descripcion"><?= $jugador['descripcion'] ?></textarea>
+                                <?php if (!empty($errors['descripcion'])): ?>
+                                    <p class="error"><?= $errors['descripcion']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <!-- Imagen del jugador -->
                             <div class="image-container">
                                 <img id="preview<?= $jugador['id'] ?>"
-                                    src="<?= base_url('images/jugadores/' . ($jugador['foto'] ?? 'desconocido.png')) ?>"
-                                    alt="Imagen del jugador">
+                                    src="<?= !empty($jugador['foto']) ? 'data:image/jpeg;base64,' . base64_encode($jugador['foto']) : base_url('images/jugadores/desconocido.png') ?>" alt="Imagen del jugador">
                                 <input type="file" name="foto" accept="image/*"
                                     onchange="previewImage(event, <?= $jugador['id'] ?>)">
+                                <?php if (!empty($errors['foto'])): ?>
+                                    <p class="error"><?= $errors['foto']; ?></p>
+                                <?php endif; ?>
                             </div>
 
                             <div class="btns">
-                            <button type="submit" class="submit-button">Guardar cambios</button>
-                            <button type="button" class="cancel-button" id="cancelar<?= $jugador['id'] ?>">Cancelar</button>
+                                <button type="submit" class="submit-button">Guardar cambios</button>
+                                <button type="button" class="cancel-button" id="cancelar<?= $jugador['id'] ?>">Cancelar</button>
                             </div>
                         </form>
                     </dialog>
@@ -143,7 +249,7 @@
                         <div class="hidden">
                             <div class="overflow-hidden">
                                 <?php if (isset($jugador['foto']) && !empty($jugador['foto'])) : ?>
-                                    <img src="<?= base_url('images/jugadores/' . $jugador['foto']) ?>" alt="Jugador">
+                                    <img src="data:image/jpeg;base64,<?= base64_encode($jugador['foto']) ?>" alt="Jugador">
                                 <?php else : ?>
                                     <img src="<?= base_url('images/jugadores/desconocido.png') ?>" alt="No hay foto del jugador">
                                 <?php endif; ?>
@@ -233,6 +339,9 @@
     <script src="<?= base_url('javascripts/focus.js') ?>"></script>
     <script>
         const editarBtns = document.querySelectorAll('#editarbtn');
+        const addbtn = document.getElementById('addbtn');
+        const dialogadd = document.querySelector('#dialogadd');
+        const closeaddbtn = document.getElementById('cancelaradd');
 
         editarBtns.forEach((btn) => {
             const dialog = btn.closest('.player-card').querySelector('dialog');
@@ -240,7 +349,7 @@
 
             btn.addEventListener('click', () => {
                 dialog.showModal();
-                document.body.style.overflow = 'hidden'; 
+                document.body.style.overflow = 'hidden';
             });
 
             close.addEventListener('click', () => {
@@ -249,10 +358,29 @@
             });
         });
 
+        addbtn.addEventListener('click', () => {
+            dialogadd.showModal();
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeaddbtn.addEventListener('click', () => {
+            dialogadd.close();
+            document.body.style.overflow = '';
+        });
+
+
         function previewImage(event, id) {
             const reader = new FileReader();
             reader.onload = function() {
                 document.getElementById("preview" + id).src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function previewImageadd(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById("preview").src = reader.result;
             };
             reader.readAsDataURL(event.target.files[0]);
         }
