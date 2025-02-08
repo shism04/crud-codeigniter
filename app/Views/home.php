@@ -45,10 +45,7 @@
                     <img src="<?= base_url('images/icons/close (1).png') ?>" class="icon close" onclick="toggleOffCanvas()">
                 </div>
                 <div class="off-canvas-links">
-                    <a href="../closeSess.php" class="log-out">
-                        <img src="<?= base_url('images/icons/logout.png') ?>" alt="" class="icon log-out">
-                        <span>Log out</span>
-                    </a>
+
                     <a href="#" class="addplayerbtn" id="addbtn">
                         <img src="<?= base_url('images/icons/plus (2).png') ?>" alt="" class="icon log-out">
                         <span>Anadir Jugador</span>
@@ -59,6 +56,7 @@
     </header>
     <dialog id='dialogadd'>
         <form method="post" action="<?= base_url('/anadirJugador') ?>" enctype="multipart/form-data">
+            <input type="hidden" name="limit" value="<?= $limit ?>">
             <h2>Añadir Jugador</h2>
 
             <?php $errors = session()->getFlashdata('errorsadd'); ?>
@@ -140,14 +138,33 @@
     </div>
     <div class="player-cards">
         <div class="sort-bar">
-            <span class="sort-option">Nombre</span>
-            <span class="sort-option">Años</span>
-            <span class="sort-option">Champions</span>
-            <span class="sort-option">All-NBA</span>
-            <span class="sort-option">MVP</span>
-            <span class="sort-option">Edad</span>
-            <span class="sort-option">Altura</span>
+            <div>
+                <span class="sort-option" data-field="nombre">Nombre</span>
+                <div class="arrow"></div>
+            </div>
+            <div>
+                <span class="sort-option" data-field="edad">Edad</span>
+                <div class="arrow"></div>
+            </div>
+            <div>
+                <span class="sort-option" data-field="champion">Champions</span>
+                <div class="arrow"></div>
+            </div>
+            <div>
+                <span class="sort-option" data-field="all_nba">All-NBA</span>
+                <div class="arrow"></div>
+            </div>
+            <div>
+                <span class="sort-option" data-field="mvp">MVP</span>
+                <div class="arrow"></div>
+            </div>
+            <div>
+                <span class="sort-option" data-field="altura">Altura</span>
+                <div class="arrow"></div>
+            </div>
         </div>
+
+
         <?php foreach ($jugadores as $jugador): ?>
             <div class="player-card">
                 <!-- Número y Línea de Tiempo -->
@@ -158,7 +175,7 @@
                     </div>
                     <div class="actions">
                         <button id="editarbtn">EDITAR</button>
-                        <a href="/eliminarJugador/<?=$jugador['id']?>">ELIMINAR</a>
+                        <a href="/eliminarJugador/<?= $jugador['id'] ?>?pagina=<?= $pagina ?>&limit=<?= $limit ?>">ELIMINAR</a>
                     </div>
                     <dialog>
                         <form method="post" action="<?= base_url('/editarJugador/' . $jugador['id'])  ?>" enctype="multipart/form-data">
@@ -280,20 +297,21 @@
 
                         <!-- Habilidades -->
                         <div class="trofeos">
-                            <div class="trofeo champion">
+                            <div class="trofeo champion <?= $jugador['champion'] == 0 ? 'disabeled' : '' ?>">
                                 <img src="<?= base_url('images/icons/rings.svg') ?>" alt="Icono Habilidad">
-                                <p><span><?= $jugador['champion'] ?></span>x</p>
+                                <p><?= $jugador['champion'] ?>x</p>
                                 <span>Champion</span>
                             </div>
-                            <div class="trofeo mvp">
+
+                            <div class="trofeo mvp <?= $jugador['mvp'] == 0 ? 'disabeled' : '' ?>">
                                 <img src="<?= base_url('images/icons/mvps.svg') ?>" alt="Icono Habilidad">
-                                <p><span><?= $jugador['mvp'] ?></span>x</p>
+                                <p><?= $jugador['mvp'] ?>x</p>
                                 <span>MVP</span>
                             </div>
-                            <div class="trofeo all-nba">
+                            <div class="trofeo all_nba <?= $jugador['all_nba'] == 0 ? 'disabeled' : '' ?>">
                                 <img src="<?= base_url('images/icons/all_nba.svg') ?>" alt="Icono Habilidad">
-                                <p><span><?= $jugador['all_nba'] ?></span>x</p>
-                                <span>All-NBA</span>
+                                <p><?= $jugador['all_nba'] ?>x</p>
+                                <span>All NBA</span>
                             </div>
                         </div>
                     </div>
@@ -329,6 +347,9 @@
         </div>
     </div>
 
+    <span id="ordenar_por" data-field="<?php echo isset($ordenar_por) ? $ordenar_por : ''; ?>"
+        data-direccion="<?php echo isset($direccion) ? $direccion : 'ASC'; ?>" hidden></span>
+
     <?php $user_exist = session()->getFlashdata('success'); ?>
     <?php if (isset($user_exist)): ?>
         <script>
@@ -338,6 +359,7 @@
     <script src="<?= base_url('javascripts/offcanvas.js') ?>"></script>
     <script src="<?= base_url('javascripts/focus.js') ?>"></script>
     <script>
+        const BASE_URL_ORDENAR = "<?= base_url('jugadores?ordenar_por=') ?>";
         const editarBtns = document.querySelectorAll('#editarbtn');
         const addbtn = document.getElementById('addbtn');
         const dialogadd = document.querySelector('#dialogadd');
@@ -385,6 +407,7 @@
             reader.readAsDataURL(event.target.files[0]);
         }
     </script>
+    <script src="<?= base_url('javascripts/ordenar.js') ?>"></script>
 </body>
 
 </html>

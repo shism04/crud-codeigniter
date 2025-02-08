@@ -8,31 +8,54 @@ class Home extends BaseController
     {
         $page = $this->request->getGet('pagina') ?? 1;
         $limit = $this->request->getGet('limit') ?? 10;
+        $ordenar_por = $this->request->getGet('ordenar_por');
+        $direccion = $this->request->getGet('direccion');
 
-
+        // Obtener jugadores paginados
         $data['jugadores'] = $this->getPaginatedJugadores($page, $limit);
-        if (($this->request->getPost('busqueda') !== null) && !empty($this->request->getPost('busqueda'))) {
-            $searchKey = $this->request->getPost('busqueda');
-            $data['jugadores'] = array_filter($data['jugadores'], function ($player) use ($searchKey) {
-                return strpos(strtolower($player['nombre']), strtolower($searchKey)) !== false ||
-                    strpos(strtolower($player['equipo']), strtolower($searchKey)) !== false ||
-                    strpos(strtolower($player['posicion']), strtolower($searchKey)) !== false ||
-                    strpos(strtolower($player['altura']), strtolower($searchKey)) !== false ||
-                    strpos(strtolower($player['peso']), strtolower($searchKey)) !== false ||
-                    strpos(strtolower($player['descripcion']), strtolower($searchKey)) !== false;
+
+        // Ordenar con usort
+        if (!empty($ordenar_por)) {
+            usort($data['jugadores'], function ($a, $b) use ($ordenar_por, $direccion) {
+                if (!isset($a[$ordenar_por]) || !isset($b[$ordenar_por])) {
+                    return 0; // Evita errores si el campo no existe
+                }
+
+                if (is_numeric($a[$ordenar_por]) && is_numeric($b[$ordenar_por])) {
+                    return ($direccion === 'ASC') ? $a[$ordenar_por] <=> $b[$ordenar_por] : $b[$ordenar_por] <=> $a[$ordenar_por];
+                } else {
+                    return ($direccion === 'ASC') ? strcasecmp($a[$ordenar_por], $b[$ordenar_por]) : strcasecmp($b[$ordenar_por], $a[$ordenar_por]);
+                }
             });
         }
+
+        // Filtro de búsqueda
+        if (($this->request->getPost('busqueda') !== null) && !empty($this->request->getPost('busqueda'))) {
+            $searchKey = strtolower($this->request->getPost('busqueda'));
+            $data['jugadores'] = array_filter($data['jugadores'], function ($player) use ($searchKey) {
+                return stripos($player['nombre'], $searchKey) !== false ||
+                    stripos($player['equipo'], $searchKey) !== false ||
+                    stripos($player['posicion'], $searchKey) !== false ||
+                    stripos($player['altura'], $searchKey) !== false ||
+                    stripos($player['peso'], $searchKey) !== false ||
+                    stripos($player['descripcion'], $searchKey) !== false;
+            });
+        }
+
         $data['totalJugadores'] = $this->jugadorModel->countAll();
         $data['limit'] = $limit;
         $data['pagina'] = $page;
+        $data['ordenar_por'] = $ordenar_por;
+        $data['direccion'] = $direccion;
+
 
         return view('home', $data);
     }
 
+
     public function getPaginatedJugadores($page, $limit)
     {
         $offset = intval((int)($page) - 1) * $limit;
-
         return $this->jugadorModel->findAll($limit, $offset);
     }
 
@@ -122,7 +145,14 @@ class Home extends BaseController
 
         $this->jugadorModel->insert($data);
 
-        return redirect()->to('/')->with('success', 'Jugador añadido correctamente');
+
+        $limit = $this->request->getVar('limit');
+
+        $totalJugadores = $this->jugadorModel->countAll();
+
+        $paginadestin = ceil($totalJugadores / $limit);
+
+        return redirect()->to('/jugadores?limit=' . $limit . '&pagina=' . $paginadestin)->with('success', 'Jugador añadido correctamente');
     }
 
     public function updatePlayer()
@@ -218,21 +248,31 @@ class Home extends BaseController
         // Actualizar el jugador en la base de datos
         $this->jugadorModel->update($this->request->getVar('id'), $data);
 
-        return redirect()->to('/')->with('success', 'Jugador actualizado correctamente.');
+        return redirect()->back()->with('success', 'Jugador actualizado correctamente.');
     }
 
     public function deletePlayer($id)
     {
-        // Buscar el jugador por ID
+        $pagina = $this->request->getVar('pagina') ?? 1;
+        $limit = $this->request->getVar('limit') ?? 10;
+
         $jugador = $this->jugadorModel->find($id);
 
         if (!$jugador) {
             return redirect()->back()->with('error', 'El jugador no existe.');
         }
 
-        // Eliminar el jugador
         $this->jugadorModel->delete($id);
 
-        return redirect()->to('/')->with('success', 'Jugador eliminado correctamente.');
+        $totalJugadores = $this->jugadorModel->countAll();
+        $desPage = ceil($totalJugadores / $limit);
+
+        if ($desPage == 0) {
+            $desPage = 1;
+        }
+
+
+        return redirect()->to('/jugadores?limit=' . $limit . '&pagina=' . $desPage)
+            ->with('success', 'Jugador eliminado correctamente.');
     }
 }
