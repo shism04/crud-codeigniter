@@ -13,7 +13,7 @@
     <header>
         <div class="logo">
             <a href="/">
-                <span class="diff">NBA</span><span style="color: white;">CODEIGNITER</span>
+                <span class="diff">NBA</span><span class="white-text" style="color: white;">JUGADORES</span>
             </a>
         </div>
 
@@ -29,19 +29,12 @@
         </div>
 
         <div class="account">
-            <img src="<?= base_url('images/icons/profile-user.png') ?>" alt="icon user" class="icon user" onclick="toggleOffCanvas()" />
             <img src="<?= base_url('images/icons/menu.png') ?>" alt="icon menu" class="icon menu" onclick="toggleOffCanvas()" />
         </div>
 
         <div class="off-canvas" id="offCanvas">
             <div class="off-canvas-content">
                 <div class="top">
-                    <div class="user">
-                        <img src="<?= base_url('images/icons/profile-user (1).png') ?>" alt="User Icon" class="icon user" />
-                        <span class="user-name">
-                            Ismael
-                        </span>
-                    </div>
                     <img src="<?= base_url('images/icons/close (1).png') ?>" class="icon close" onclick="toggleOffCanvas()">
                 </div>
                 <div class="off-canvas-links">

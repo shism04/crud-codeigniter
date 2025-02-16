@@ -1,4 +1,5 @@
 @import url('vars.css');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap');
 
 body {
     margin: 0;
@@ -15,24 +16,23 @@ header {
     align-items: center;
     background-color: var(--background-color);
     color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000; 
 
     div.logo {
-        a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-
-
-            img {
-                margin-right: .5rem;
-                width: 50px;
-                height: 50px;
-            }
+        span{
+           font-size: 1.1em; 
         }
+
+        .diff {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .white-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+
     }
 
     /*Search box styles*/
@@ -136,7 +136,7 @@ header {
 
         div.top {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             margin-bottom: 1rem;
 
             div.user {
@@ -157,7 +157,7 @@ header {
             img.close {
                 width: 1.5rem;
                 height: 1.5rem;
-                background-color: var(--secondary-color);
+                background-color: rgb(216, 216, 216);
                 transition: .4s;
                 padding: .3rem;
 
@@ -173,6 +173,7 @@ header {
         flex-direction: column;
         padding: 10px 0;
         text-decoration: none;
+        transition: .4s;
 
 
         a {
@@ -180,10 +181,18 @@ header {
             align-items: center;
             margin-bottom: 1rem;
             color: black;
+            font-family: 'Montserrat', sans-serif;  
+            font-weight: 700;
             text-decoration: none;
+            transition: .4s;
 
             &:hover {
                 text-decoration: underline;
+            }
+            img{
+                height: 25px;
+                width: 25px;
+                background-color: var(--primary-color);
             }
 
         }
@@ -197,7 +206,6 @@ header {
 
 /* Hero Section */
 .hero {
-    min-height: 65vh;
     background: url('../images/nba-bg.jpg') no-repeat center center / cover;
     position: relative;
     display: flex;
@@ -234,12 +242,13 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #8f8f8f;
+    background-color: var(--secondary-color);
     color: white;
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 15px;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .sort-option {
@@ -248,7 +257,7 @@ header {
 }
 
 .sort-option:hover {
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 /* Flecha oculta por defecto */
@@ -262,8 +271,13 @@ header {
     margin-left: .2em;
 }
 
-.sort-option.active ~ .arrow {
+.sort-option.active {
+    color: var(--primary-color);
+}
+
+.sort-option.active~.arrow {
     display: inline-block;
+    color: var(--primary-color);
 }
 
 
@@ -274,12 +288,6 @@ header {
 
 .player-card {
     margin-bottom: 1em;
-
-    &:hover {
-        div.bg {
-            background-color: #222c3b;
-        }
-    }
 }
 
 /* Número y Línea de Tiempo */
@@ -305,6 +313,7 @@ header {
     font-size: 24px;
     font-weight: bold;
     text-decoration: underline;
+    color: var(--secondary-color);
 }
 
 .actions {
@@ -339,7 +348,7 @@ header {
 .specific-info {
     display: flex;
     padding: 1em;
-    background-color: rgb(222, 222, 222);
+    background-color: rgb(243, 243, 243);
     color: black;
 }
 
@@ -347,8 +356,18 @@ header {
 .image-container {
     position: relative;
     min-width: 28%;
-    background-color: rgb(222, 222, 222);
+    background-color: rgb(243, 243, 243);
     overflow: hidden;
+
+    &:hover {
+        div.bg {
+            background-color: var(--secondary-color);
+        }
+
+        .position-tag {
+            background-color: var(--primary-color);
+        }
+    }
 }
 
 .image-container .hidden {
@@ -386,6 +405,7 @@ header {
     color: white;
     font-size: 12px;
     padding: 3px 6px;
+    transition: .5s;
 }
 
 .player-phisic {
@@ -464,11 +484,11 @@ header {
 
 .trofeo.disabeled img,
 .trofeo.disabeled p,
-.trofeo.disabeled span{
+.trofeo.disabeled span {
     filter: opacity(60%);
 }
 
-p.error{
+p.error {
     color: red;
 }
 
