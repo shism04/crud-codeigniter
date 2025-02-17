@@ -29,20 +29,6 @@
                     <p class="error"><?= $errors['nombre']; ?></p>
                 <?php endif; ?>
 
-                <label for="apellido">Apellido</label>
-                <input type="text" id="apellido" name="apellido" value="<?= old('apellido') ?>" placeholder="Ingresa tu apellido"
-                    class="<?= !empty($errors['apellido']) ? 'error' : '' ?>">
-                <?php if (!empty($errors['apellido'])): ?>
-                    <p class="error"><?= $errors['apellido']; ?></p>
-                <?php endif; ?>
-
-                <label for="email">Correo Electrónico</label>
-                <input type="email" id="email" name="email" value="<?= old('email') ?>" placeholder="Ingresa tu correo"
-                    class="<?= !empty($errors['email']) ? 'error' : '' ?>">
-                <?php if (!empty($errors['email'])): ?>
-                    <p class="error"><?= $errors['email']; ?></p>
-                <?php endif; ?>
-
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña"
                     class="<?= !empty($errors['password']) ? 'error' : '' ?>">
@@ -55,13 +41,6 @@
                     class="<?= !empty($errors['confirm_pswd']) ? 'error' : '' ?>">
                 <?php if (!empty($errors['confirm_pswd'])): ?>
                     <p class="error"><?= $errors['confirm_pswd']; ?></p>
-                <?php endif; ?>
-
-                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?= old('fecha_nacimiento') ?>"
-                    class="<?= !empty($errors['fecha_nacimiento']) ? 'error' : '' ?>">
-                <?php if (!empty($errors['fecha_nacimiento'])): ?>
-                    <p class="error"><?= $errors['fecha_nacimiento']; ?></p>
                 <?php endif; ?>
 
                 <button type="submit">Registrarse</button>

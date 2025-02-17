@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fc;
+    font-family: "Open Sans", sans-serif;
+    color: #333;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    min-height: 100vh;
+}
+
+.form-container {
+    background-color: #2e3b4e;
+    padding: 2em;
+    border-radius: 1.5em;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    color: white;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 1em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    text-align: left;
+    margin-top: 1em;
+    font-size: 1.1em;
+    color: #a3b2c3;
+}
+
+input {
+    padding: 0.8em;
+    border-radius: 0.5em;
+    border: none;
+    margin-top: 0.5em;
+    font-size: 1em;
+}
+
+button {
+    margin-top: 1.5em;
+    padding: 1em;
+    border-radius: 1.2em;
+    background-color: #ff7043; /* Color diferente al de registro */
+    border: none;
+    font-size: 1.2em;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #e64a19; /* Color más oscuro al pasar el mouse */
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 0.5em;
+    text-align: left;
+}
+
+input.error {
+    border: 2px solid red;
+}
+
+.exist {
+    background-color: red;
+    padding: 1em;
+}
+
+.exist p {
+    color: white;
+}

@@ -4,8 +4,15 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    public function index(): string
+    public function index()
     {
+        $session = session();
+        $user = $session->get('user');
+    
+        if (!$user) {
+            return redirect()->to('/loginview');
+        }
+
         $page = $this->request->getGet('pagina') ?? 1;
         $limit = $this->request->getGet('limit') ?? 10;
         $ordenar_por = $this->request->getGet('ordenar_por');

@@ -45,6 +45,7 @@ abstract class BaseController extends Controller
     // protected $session;
 
     protected $jugadorModel;
+    protected $userModel;
 
     /**
      * @return void
@@ -55,6 +56,7 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         $this->jugadorModel = new \App\Models\JugadorModel();
+        $this->userModel= new \App\Models\UserModel();
         // E.g.: $this->session = service('session');
     }
 }
